@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import LeftMenu from "../Menu";
+import LeftMenu from "@/pages/Menu";
 
 const Home = () => {
   

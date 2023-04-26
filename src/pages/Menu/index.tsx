@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { router, IRouter } from "../../router/router";
+import { router, IRouter } from "@/router/router";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -70,7 +70,9 @@ const LeftMenu: React.FC = ({ children }: IProps) => {
                 mode="inline"
                 items={menuOption}
             />
-            {children}
+            <div style={{ flex: 1 }}>
+                {children}
+            </div>
         </div>
     );
 };
