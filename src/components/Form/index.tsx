@@ -1,14 +1,24 @@
 import React from "react";
-import { Button, Checkbox, Col, Form, Input, Row } from "antd";
-import style from '@/components/Form/style.module.scss'
+import { Button, Col, Form, Input, Row } from "antd";
+// import style from '@/components/Form'
 interface ICustomForm {
   option: any;
   onSubmit: (value: any) => void;
+  resetClick?: () => void;
 }
-const CustomForm = ({ option, onSubmit }: ICustomForm) => {
+const CustomForm = ({ option, onSubmit, resetClick }: ICustomForm) => {
   const [form] = Form.useForm();
 
   const columnNum = 3;
+
+  const getComponent = (type: string) => {
+    if (type === "input") {
+      return <Input />;
+    }
+
+    return <Input />;
+  };
+
   const getCustomOption = (option: any) => {
     const formatOption = option.reduce((pre: any, cur: any, index: number) => {
       if (index % columnNum) {
@@ -20,28 +30,44 @@ const CustomForm = ({ option, onSubmit }: ICustomForm) => {
     }, []);
     return formatOption.map((item: any, index: number) => (
       <Row align="middle" key={index}>
-        {item.map((item: any, index: number) => (
-          <Col span={item.span ?? 24 / columnNum} key={index}>
-            <Form.Item {...item} key={item.label} style={{ margin: 0 }}>
-              <Input />
-            </Form.Item>
-          </Col>
-        ))}
+        {item.map((item: any, index: number) => {
+          const {
+            span,
+            labelCol = { span: 6 },
+            wrapperCol = { span: 18 },
+          } = item;
+          return (
+            <Col span={span ?? 24 / columnNum} key={index}>
+              <Form.Item
+                {...{ labelCol, wrapperCol }}
+                {...item}
+                key={item.label}
+                style={{ margin: 0 }}
+              >
+                {/* <Input /> */}
+                {getComponent(item.type)}
+              </Form.Item>
+            </Col>
+          );
+        })}
       </Row>
     ));
   };
 
   const clickSubmit = () => {
-    form.validateFields().then(onSubmit)
+    form.validateFields().then(onSubmit);
+  };
+  const clickReset = () => {
+    form.resetFields();
+    // onSubmit({});
+    resetClick?.();
   }
-
   return (
-    <div style={{ display: "flex", height: '100%' }}>
+    <div style={{ display: "flex", height: "100%",marginBottom: "20px" }}>
       <Form
         // name="form"
         form={form}
-        // style={{ flex: 1 }}
-        style={style.form}
+        style={{ flex: 1 }}
         // initialValues={{ remember: true }}
         // onFinish={onFinish}
         // onFinishFailed={onFinishFailed}
@@ -49,8 +75,13 @@ const CustomForm = ({ option, onSubmit }: ICustomForm) => {
       >
         {getCustomOption(option)}
       </Form>
-      <div style={{ width: 200, height: '100%', borderLeft: 'solid 1px #ccc' }}>
-        <Button type="primary" onClick={clickSubmit}>提交</Button>
+      <div style={{ width: 200, height: "100%", borderLeft: "solid 1px #ccc", display: 'flex', justifyContent: "space-around" }}>
+        <Button type="primary" onClick={clickSubmit}>
+          提交
+        </Button>
+        <Button onClick={clickReset}>
+          重置
+        </Button>
       </div>
     </div>
   );

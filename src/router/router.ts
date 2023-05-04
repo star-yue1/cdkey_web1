@@ -25,10 +25,10 @@ export const Router = (): IRouter[] => [
         title: "用户列表",
       },
       {
-        path: "/sdkList",
-        component: lazy(() => import("../pages/home/component/sdkList")),
+        path: "/cdkList",
+        component: lazy(() => import("../pages/home/component/cdkList")),
         key: "home/sdkList",
-        title: "sdk列表",
+        title: "cdk列表",
       },
 
     ],
