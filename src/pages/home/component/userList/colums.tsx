@@ -16,7 +16,7 @@ export const columns = [
     dataIndex: "create_time",
     key: "create_time",
     width: 200,
-    render:(value) => {
+    render:(value: any) => {
       return value ? new Date(Number(value)).toLocaleString() : '-'
     }
   },
@@ -31,7 +31,7 @@ export const columns = [
     dataIndex: "time",
     key: "time",
     width: 100,
-    render:(_,row: any) => {
+    render:(_: any,row: any) => {
       return row?.sdk_info?.time ? row?.sdk_info?.time : '-'
     }
   },
@@ -40,7 +40,7 @@ export const columns = [
     dataIndex: "end_time",
     key: "end_time",
     width: 200,
-    render:(value) => {
+    render:(value: any) => {
       return value ? new Date(Number(value)).toLocaleString() : '-'
     }
   }

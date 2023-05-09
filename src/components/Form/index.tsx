@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Col, Form, Input, Row } from "antd";
+import { Button, Col, Form, Input, Row, Select } from "antd";
 // import style from '@/components/Form'
 interface ICustomForm {
   option: any;
@@ -11,9 +11,14 @@ const CustomForm = ({ option, onSubmit, resetClick }: ICustomForm) => {
 
   const columnNum = 3;
 
-  const getComponent = (type: string) => {
+  const getComponent = (item: any) => {
+    console.log('type', item);
+    const { type, option } = item;
     if (type === "input") {
       return <Input />;
+    }
+    if (type === "select") {
+      return <Select options={option}/>;
     }
 
     return <Input />;
@@ -45,7 +50,7 @@ const CustomForm = ({ option, onSubmit, resetClick }: ICustomForm) => {
                 style={{ margin: 0 }}
               >
                 {/* <Input /> */}
-                {getComponent(item.type)}
+                {getComponent(item)}
               </Form.Item>
             </Col>
           );

@@ -18,7 +18,7 @@ export const columns = [
     dataIndex: "create_time",
     key: "create_time",
     width: "200",
-    render: (value) => {
+    render: (value: any) => {
       return new Date(Number(value)).toLocaleString();
     },
   },
@@ -27,7 +27,7 @@ export const columns = [
     dataIndex: "start_time",
     key: "start_time",
     width: "200",
-    render: (value) => {
+    render: (value: any) => {
       return value ? new Date(Number(value)).toLocaleString() : "-";
     },
   },
@@ -36,7 +36,7 @@ export const columns = [
     dataIndex: "end_time",
     key: "end_time",
     width: "200",
-    render: (value) => {
+    render: (value: any) => {
       return value ? new Date(Number(value)).toLocaleString() : "-";
     },
   },
