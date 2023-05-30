@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { router, IRouter } from "@/router/router";
+import { routes, IRouter } from "@/router/router";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -25,18 +25,18 @@ function getItem(
 const getMenuOption = (router: IRouter[] | undefined): any => {
     if (router?.length) {
         return router.map((item) => {
-            return getItem(
+            return item.showMenu ? getItem(
                 item.title, 
                 item.path, 
                 // item.icon ? <item.icon /> : '' , 
                 null,
-                item.router?.length ? getMenuOption(item?.router) : null)
+                item.children?.length ? getMenuOption(item?.children) : null) : null
         })
     }
     return [];
 };
 
-const menuOption = getMenuOption(router);
+const menuOption = getMenuOption(routes);
 
 interface IProps {
     children?: React.ReactNode;
@@ -65,7 +65,7 @@ const LeftMenu: React.FC = ({ children }: IProps) => {
                 onClick={onClick}
                 selectedKeys={[selectedKeys]}
                 style={{ width: 180 }}
-                defaultSelectedKeys={["1"]}
+                defaultSelectedKeys={openMenukeys}
                 defaultOpenKeys={openMenukeys}
                 mode="inline"
                 items={menuOption}

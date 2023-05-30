@@ -1,5 +1,5 @@
 
-import { get, post } from "@/utils/http"
+import { get } from "@/utils/http"
 
 
 export const getSdkList = (params: any) => get('/sdk/getSdklist', params)
